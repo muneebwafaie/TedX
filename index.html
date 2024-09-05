@@ -78,7 +78,21 @@
           Hazratbal</p>
         <div data-aos="fade-up" data-aos-delay="300" class="mt-5">
           <!-- <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn mt-3"></a> -->
-          <div id="countdown" class="display-4 text-center" data-aos="fade-up" data-aos-delay="300"></div>
+          <div class="row p-3" id="countContainer">
+            <div id="countdown">
+              <ul id="countDownList">
+                <li><span id="days"></span>Days</li>
+                <li><span id="hours"></span>Hours</li>
+                <li><span id="minutes"></span>Mins</li>
+                <li><span id="seconds"></span>Secs</li>
+              </ul>
+            </div>
+            <div id="content" class="emoji">
+              <span>🥳</span>
+              <span>🎉</span>
+              <span>🎂</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -606,7 +620,7 @@
             <div class="faq-container">
 
               <div class="faq-item faq-active">
-                <h3>Non consectetur a erat nam at lectus urna duis?</h3>
+                <h3>Will the talks be available after the event?</h3>
                 <div class="faq-content">
                   <p>Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur
                     gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.</p>
@@ -615,22 +629,17 @@
               </div><!-- End Faq item-->
 
               <div class="faq-item">
-                <h3>Feugiat scelerisque varius morbi enim nunc faucibus?</h3>
+                <h3>Will there be opportunities to interact with the speakers?</h3>
                 <div class="faq-content">
-                  <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet
-                    id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque
-                    elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
+                  <p>VIP ticket holders will have an exclusive lunch with guests. For other attendees, interaction opportunities will depend on the event schedule. There may also be Q&A sessions following the talks.</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div><!-- End Faq item-->
 
               <div class="faq-item">
-                <h3>Dolor sit amet consectetur adipiscing elit pellentesque?</h3>
+                <h3>How can i buy tickets for the event?</h3>
                 <div class="faq-content">
-                  <p>Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar
-                    elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque
-                    eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis
-                    sed odio morbi quis</p>
+                  <p>Tickets can be purchased through our official website. Look for the "Buy Now" button next to each ticket type.</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div><!-- End Faq item-->
@@ -859,32 +868,49 @@
   <script src="assets/js/main.js"></script>
 
   <script>
-    const countDownDate = new Date("Sep 14, 2024 09:00:00").getTime();
+    (function () {
+      const second = 1000,
+        minute = second * 60,
+        hour = minute * 60,
+        day = hour * 24;
 
-    // Update the countdown every 1 second
-    const x = setInterval(function () {
-      // Get today's date and time
-      const now = new Date().getTime();
+      //I'm adding this section so I don't have to keep updating this pen every year :-)
+      //remove this if you don't need it
+      let today = new Date(),
+        dd = String(today.getDate()).padStart(2, "0"),
+        mm = String(today.getMonth() + 1).padStart(2, "0"),
+        yyyy = today.getFullYear(),
+        nextYear = yyyy,
+        dayMonth = "09/14/",
+        birthday = dayMonth + yyyy;
 
-      // Find the distance between now and the countdown date
-      const distance = countDownDate - now;
-
-      // Time calculations for days, hours, minutes and seconds
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      // Display the result in the element with id="countdown"
-      document.getElementById("countdown").innerHTML =
-        days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-
-      // If the countdown is finished, write some text
-      if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("countdown").innerHTML = "EXPIRED";
+      today = mm + "/" + dd + "/" + yyyy;
+      if (today > birthday) {
+        birthday = dayMonth + nextYear;
       }
-    }, 1000);
+      //end
+
+      const countDown = new Date(birthday).getTime(),
+        x = setInterval(function () {
+
+          const now = new Date().getTime(),
+            distance = countDown - now;
+
+          document.getElementById("days").innerText = String(Math.floor(distance / (day))).padStart(2, '0'),
+            document.getElementById("hours").innerText = String(Math.floor((distance % (day)) / hour)).padStart(2, '0'),
+            document.getElementById("minutes").innerText = String(Math.floor((distance % (hour)) / minute)).padStart(2, '0'),
+            document.getElementById("seconds").innerText = String(Math.floor((distance % (minute)) / second)).padStart(2, '0');
+
+          //do something later when date is reached
+          if (distance < 0) {
+            document.getElementById("headline").innerText = "It's my birthday!";
+            document.getElementById("countdown").style.display = "none";
+            document.getElementById("content").style.display = "block";
+            clearInterval(x);
+          }
+          //seconds
+        }, 1000)
+    }());
   </script>
 
 </body>

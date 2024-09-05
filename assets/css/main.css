@@ -1688,3 +1688,75 @@ section,
 .starter-section {
   /* Add your styles here */
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* general styling */
+:root {
+  --smaller: .75;
+}
+
+#countContainer {
+  margin: 0 auto;
+  text-align: center;
+  background-color:#f8012aa4;
+  border-radius: 20px;
+}
+
+#countDownList{
+  margin: 0;
+  padding: 0;
+}
+
+#countDownList li {
+  display: inline-block;
+  font-size: 1em;
+  list-style-type: none;
+  padding: 1em;
+  font-weight: bold;
+  background-color: #d60b1fbd;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+#countDownList li span {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: normal;
+}
+
+.emoji {
+  display: none;
+  padding: 1rem;
+}
+
+.emoji span {
+  font-size: 4rem;
+  padding: 0 .5rem;
+}
+
+@media all and (max-width: 768px) {
+  h1 {
+    font-size: calc(1.5rem * var(--smaller));
+  }
+  
+  li {
+    font-size: calc(1.125rem * var(--smaller));
+  }
+  
+  li span {
+    font-size: calc(3.375rem * var(--smaller));
+  }
+}
